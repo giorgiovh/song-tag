@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import './App.css';
+import Person from './components/Person'
 class App extends Component {
   constructor() {
     super();
@@ -13,9 +14,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h2>Person: {this.state.person}</h2>
-      </div>
+      <Person person={this.state.person}></Person>
     )
   }
 }
