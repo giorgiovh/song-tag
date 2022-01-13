@@ -5,7 +5,7 @@ import Letters from './components/Letters'
 import DaysLeft from './components/DaysLeft'
 import Header from './components/Header'
 import Form from "./components/Form"
-import PrevSong from "./components/PrevSong"
+import PastSongs from "./components/PastSongs";
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -17,9 +17,9 @@ class App extends Component {
       personIdx: 0,
       alphLetterIdx: 0,
       daysLeft: 2,
-      prevSong: "Highway to Hell",
       titleCovered: "",
-      artistCovered: ""
+      artistCovered: "",
+      pastSongs: [{ titleCovered: "Gigolo Aunt", artistCovered: "Syd Barrett" }, { titleCovered: "Superstition", artistCovered: "Stevie Wonder" }]
     }
   }
 
@@ -51,10 +51,10 @@ class App extends Component {
       <>
         <Header />
         <Person person={persons[this.state.personIdx % persons.length]} />
-        <PrevSong prevSong={this.state.prevSong}/>
         <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]} />
         <DaysLeft daysLeft={this.state.daysLeft} />
         <Form moveTurn={this.moveTurn} titleCovered={this.state.titleCovered} artistCovered={this.state.artistCovered} handleChange={this.handleChange}/>
+        <PastSongs pastSongs={this.state.pastSongs}/>
       </>
     )
   }
