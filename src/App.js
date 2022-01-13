@@ -11,21 +11,34 @@ class App extends Component {
 
     this.state = {
       personIdx: 0,
-      letterIdx: 0,
+      alphLetterIdx: 0,
       daysLeft: 2
     }
   }
 
-  increaseIndex = () => {
-    this.setState({personIdx: this.state.personIdx + 1})
+  incPersonIdx = () => {
+    this.setState({
+      personIdx: this.state.personIdx + 1
+    })
+  }
+
+  incAlphLetterIdx = () => {
+    this.setState({
+      alphLetterIdx: this.state.alphLetterIdx + 1
+    })
+  }
+
+  moveTurn = () => {
+    this.incPersonIdx();
+    this.incAlphLetterIdx();
   }
 
   render() {
     return (
       <>
         <Person person={persons[this.state.personIdx % persons.length]}></Person>
-        <Letters letter={alphabet[this.state.letterIdx % alphabet.length]}></Letters>
-        <button onClick={this.increaseIndex}>Submit Song</button>
+        <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]}></Letters>
+        <button onClick={this.moveTurn}>Submit Song</button>
 
       </>
     )
