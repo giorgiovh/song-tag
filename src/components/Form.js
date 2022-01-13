@@ -19,8 +19,7 @@ const Form = (props) => {
                 />
                 <br /><br />
                 <Button 
-                    moveTurn={props.moveTurn}
-                    addSong={props.addSong}
+                    handleClick={props.handleClick}
                 />
             </form>
         </>

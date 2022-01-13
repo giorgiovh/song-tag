@@ -1,7 +1,7 @@
 const Button = (props) => {
     return (
         <>
-            <button type="submit" onClick={props.addSong}>Submit Song</button>
+            <button type="submit" onClick={props.handleClick}>Submit Song</button>
         </>
     )
 }

@@ -44,12 +44,6 @@ class App extends Component {
     // else if initial of song submitted === lastLetterOfSong, then inc lastLetterOfSong
   }
 
-  handleChange = e => {
-    const newSong = {...this.state.newSong};
-    newSong[e.target.name] = e.target.value;
-    this.setState({ newSong })
-  }
-
   addSong = e => {
     e.preventDefault();
     this.setState(state => ({
@@ -57,6 +51,18 @@ class App extends Component {
       newSong: {titleCovered: "", artistCovered: ""}
     }))
   }
+
+  handleClick = (e) => {
+    this.moveTurn();
+    this.addSong(e);
+  }
+
+  handleChange = e => {
+    const newSong = {...this.state.newSong};
+    newSong[e.target.name] = e.target.value;
+    this.setState({ newSong })
+  }
+
 
   render() {
     return (
@@ -66,9 +72,8 @@ class App extends Component {
         <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]} />
         <DaysLeft daysLeft={this.state.daysLeft} />
         <Form 
-          moveTurn={this.moveTurn} 
           titleCovered={this.state.newSong.titleCovered} artistCovered={this.state.newSong.artistCovered} handleChange={this.handleChange}
-          addSong={this.addSong}
+          handleClick={this.handleClick}
         />
         <PastSongs pastSongs={this.state.pastSongs}/>
       </>
