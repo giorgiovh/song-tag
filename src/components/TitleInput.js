@@ -1,9 +1,10 @@
-const Input = (props) => {
+const TitleInput = (props) => {
     return (
         <>
             <input 
                 type="text" 
                 name="songCovered"
+
                 value={props.songCovered}
                 onChange={props.handleChange}
             />
@@ -11,4 +12,4 @@ const Input = (props) => {
     )
 }
 
-export default Input
+export default TitleInput

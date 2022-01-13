@@ -5,7 +5,7 @@ import Letters from './components/Letters'
 import DaysLeft from './components/DaysLeft'
 import Header from './components/Header'
 import Button from './components/Button'
-import Input from './components/Input'
+import TitleInput from './components/TitleInput'
 import Form from "./components/Form"
 import PrevSong from "./components/PrevSong"
 

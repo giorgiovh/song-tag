@@ -1,4 +1,4 @@
-import Input from "./Input";
+import TitleInput from "./TitleInput";
 import Button from "./Button";
 
 const Form = (props) => {
@@ -7,7 +7,7 @@ const Form = (props) => {
             <label htmlFor="">Song Covered</label>
             <br />
             <form /*onSubmit={}*/>
-                <Input songCovered={props.songCovered} handleChange={props.handleChange}/>
+                <TitleInput songCovered={props.songCovered} handleChange={props.handleChange}/>
                 <Button moveTurn={props.moveTurn}/>
             </form>
         </>
