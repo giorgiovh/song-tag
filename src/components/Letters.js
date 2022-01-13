@@ -1,6 +1,6 @@
 const Letters = (props) => {
     return (
-        <h2>Letters: {props.letter}</h2>
+        <h2>Choose From: {props.letter}</h2>
     )
 }
 

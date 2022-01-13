@@ -1,6 +1,6 @@
-const Input = () => {
+const Input = (props) => {
     return (
-        <input type="text" />
+        <input type="text" value={props.prevSong}/>
     )
 }
 

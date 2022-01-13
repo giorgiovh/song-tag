@@ -6,7 +6,8 @@ import DaysLeft from './components/DaysLeft'
 import Header from './components/Header'
 import Button from './components/Button'
 import Input from './components/Input'
-import Form from "./components/Form";
+import Form from "./components/Form"
+import PrevSong from "./components/PrevSong"
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -17,7 +18,8 @@ class App extends Component {
     this.state = {
       personIdx: 0,
       alphLetterIdx: 0,
-      daysLeft: 2
+      daysLeft: 2,
+      prevSong: "Highway to Hell"
     }
   }
 
@@ -45,10 +47,11 @@ class App extends Component {
       <>
         <Header />
         <Person person={persons[this.state.personIdx % persons.length]} />
+        <PrevSong prevSong={this.state.prevSong}/>
         <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]} />
         <DaysLeft daysLeft={this.state.daysLeft} />
         {/* <Button moveTurn={this.moveTurn} /> */}
-        <Form moveTurn={this.moveTurn}/>
+        <Form moveTurn={this.moveTurn} prevSong={this.state.prevSong}/>
       </>
     )
   }

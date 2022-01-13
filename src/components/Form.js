@@ -6,8 +6,10 @@ const Form = (props) => {
         <>
             <label htmlFor="">Song Covered</label>
             <br />
-            <Input />
-            <Button moveTurn={props.moveTurn}/>
+            <form /*onSubmit={}*/>
+                <Input prevSong={props.prevSong}/>
+                <Button moveTurn={props.moveTurn}/>
+            </form>
         </>
     )
 }

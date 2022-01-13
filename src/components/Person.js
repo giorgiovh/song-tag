@@ -1,6 +1,6 @@
 const Person = (props) => {
     return (
-        <h2>Person: {props.person}</h2>
+        <h2>Up Next: {props.person}</h2>
     )
 }
 
