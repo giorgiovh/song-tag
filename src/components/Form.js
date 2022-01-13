@@ -18,7 +18,10 @@ const Form = (props) => {
                     handleChange={props.handleChange}
                 />
                 <br /><br />
-                <Button moveTurn={props.moveTurn}/>
+                <Button 
+                    moveTurn={props.moveTurn}
+                    addSong={props.addSong}
+                />
             </form>
         </>
     )

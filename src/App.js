@@ -50,6 +50,14 @@ class App extends Component {
     this.setState({ newSong })
   }
 
+  addSong = e => {
+    e.preventDefault();
+    this.setState(state => ({
+      pastSongs: [...state.pastSongs, state.newSong],
+      newSong: {titleCovered: "", artistCovered: ""}
+    }))
+  }
+
   render() {
     return (
       <>
@@ -57,7 +65,11 @@ class App extends Component {
         <Person person={persons[this.state.personIdx % persons.length]} />
         <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]} />
         <DaysLeft daysLeft={this.state.daysLeft} />
-        <Form moveTurn={this.moveTurn} titleCovered={this.state.newSong.titleCovered} artistCovered={this.state.newSong.artistCovered} handleChange={this.handleChange}/>
+        <Form 
+          moveTurn={this.moveTurn} 
+          titleCovered={this.state.newSong.titleCovered} artistCovered={this.state.newSong.artistCovered} handleChange={this.handleChange}
+          addSong={this.addSong}
+        />
         <PastSongs pastSongs={this.state.pastSongs}/>
       </>
     )
