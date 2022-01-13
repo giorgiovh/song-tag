@@ -3,6 +3,7 @@ import './App.css';
 import Person from './components/Person'
 import Letters from './components/Letters'
 import DaysLeft from './components/DaysLeft'
+import Header from './components/Header'
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -39,9 +40,16 @@ class App extends Component {
   render() {
     return (
       <>
+        <Header></Header>
         <Person person={persons[this.state.personIdx % persons.length]}></Person>
         <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]}></Letters>
         <DaysLeft daysLeft={this.state.daysLeft}></DaysLeft>
+        <form action="" method="post">
+          <label htmlFor="">Song Covered</label>
+          <br />
+          <input type="text" />
+          <br />
+        </form>
         <button onClick={this.moveTurn}>Submit Song</button>
       </>
     )
