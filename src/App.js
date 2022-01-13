@@ -55,7 +55,7 @@ class App extends Component {
         <PrevSong prevSong={this.state.prevSong}/>
         <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]} />
         <DaysLeft daysLeft={this.state.daysLeft} />
-        <Form moveTurn={this.moveTurn} songCovered={this.state.songCovered}/>
+        <Form moveTurn={this.moveTurn} songCovered={this.state.songCovered} handleChange={this.handleChange}/>
       </>
     )
   }
