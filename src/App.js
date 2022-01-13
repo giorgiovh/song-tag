@@ -18,8 +18,10 @@ class App extends Component {
       alphLetterIdx: 0,
       daysLeft: 2,
       pastSongs: [{ titleCovered: "Gigolo Aunt", artistCovered: "Syd Barrett" }, { titleCovered: "Superstition", artistCovered: "Stevie Wonder" }],
-      titleCovered: "Hello",
-      artistCovered: "Oasis",
+      newSong: {
+        titleCovered: "Hello",
+        artistCovered: "Oasis",
+      }
     }
   }
 
@@ -53,7 +55,7 @@ class App extends Component {
         <Person person={persons[this.state.personIdx % persons.length]} />
         <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]} />
         <DaysLeft daysLeft={this.state.daysLeft} />
-        <Form moveTurn={this.moveTurn} titleCovered={this.state.titleCovered} artistCovered={this.state.artistCovered} handleChange={this.handleChange}/>
+        <Form moveTurn={this.moveTurn} titleCovered={this.state.newSong.titleCovered} artistCovered={this.state.newSong.artistCovered} handleChange={this.handleChange}/>
         <PastSongs pastSongs={this.state.pastSongs}/>
       </>
     )
