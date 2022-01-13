@@ -3,7 +3,7 @@ const Input = (props) => {
         <>
             <input 
                 type="text" 
-                name="song-covered"
+                name="songCovered"
                 value={props.songCovered}
                 onChange={props.handleChange}
             />
