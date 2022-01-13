@@ -3,7 +3,7 @@ const PastSongs = (props) => {
         <>
             <h2>Past Songs</h2>
             <ul>
-                {props.pastSongs.map((pastSong, i) => <li key={i}>{pastSong.titleCovered} <small>- {pastSong.artistCovered}</small></li>)}
+                {props.pastSongs.map((pastSong, i) => <li key={i}>{pastSong.titleCovered}<small> - {pastSong.artistCovered}</small></li>)}
             </ul>
         </>
     )

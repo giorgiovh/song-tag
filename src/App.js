@@ -17,9 +17,9 @@ class App extends Component {
       personIdx: 0,
       alphLetterIdx: 0,
       daysLeft: 2,
-      titleCovered: "",
-      artistCovered: "",
-      pastSongs: [{ titleCovered: "Gigolo Aunt", artistCovered: "Syd Barrett" }, { titleCovered: "Superstition", artistCovered: "Stevie Wonder" }]
+      pastSongs: [{ titleCovered: "Gigolo Aunt", artistCovered: "Syd Barrett" }, { titleCovered: "Superstition", artistCovered: "Stevie Wonder" }],
+      titleCovered: "Hello",
+      artistCovered: "Oasis",
     }
   }
 
