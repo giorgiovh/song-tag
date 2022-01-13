@@ -20,7 +20,8 @@ class App extends Component {
       alphLetterIdx: 0,
       daysLeft: 2,
       prevSong: "Highway to Hell",
-      songCovered: "Hello!"
+      songCovered: "",
+      artistCovered: ""
     }
   }
 
