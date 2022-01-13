@@ -19,7 +19,8 @@ class App extends Component {
       personIdx: 0,
       alphLetterIdx: 0,
       daysLeft: 2,
-      prevSong: "Highway to Hell"
+      prevSong: "Highway to Hell",
+      songCovered: "Hello!"
     }
   }
 
@@ -42,6 +43,10 @@ class App extends Component {
     // else if initial of song submitted === lastLetterOfSong, then inc lastLetterOfSong
   }
 
+  handleChange = e => {
+    this.setState({ songCovered: e.target.value })
+  }
+
   render() {
     return (
       <>
@@ -50,8 +55,7 @@ class App extends Component {
         <PrevSong prevSong={this.state.prevSong}/>
         <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]} />
         <DaysLeft daysLeft={this.state.daysLeft} />
-        {/* <Button moveTurn={this.moveTurn} /> */}
-        <Form moveTurn={this.moveTurn} prevSong={this.state.prevSong}/>
+        <Form moveTurn={this.moveTurn} songCovered={this.state.songCovered}/>
       </>
     )
   }
