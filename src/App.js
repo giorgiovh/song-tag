@@ -30,7 +30,9 @@ class App extends Component {
 
   moveTurn = () => {
     this.incPersonIdx();
+    // if initial of song submitted === alphabet[this.state.alphLetterIdx], then incAlphLetterIdx
     this.incAlphLetterIdx();
+    // else if initial of song submitted === lastLetterOfSong, then inc lastLetterOfSong
   }
 
   render() {
@@ -39,7 +41,6 @@ class App extends Component {
         <Person person={persons[this.state.personIdx % persons.length]}></Person>
         <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]}></Letters>
         <button onClick={this.moveTurn}>Submit Song</button>
-
       </>
     )
   }
