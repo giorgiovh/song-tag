@@ -1,15 +1,15 @@
-const TitleInput = (props) => {
+const ArtistInput = (props) => {
     return (
         <>
             <input 
                 type="text" 
-                name="titleCovered"
+                name="artistCovered"
 
-                value={props.titleCovered}
+                value={props.artistCovered}
                 onChange={props.handleChange}
             />
         </>
     )
 }
 
-export default TitleInput
+export default ArtistInput

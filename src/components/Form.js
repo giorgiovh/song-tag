@@ -7,7 +7,7 @@ const Form = (props) => {
             <label htmlFor="">Song Covered</label>
             <br />
             <form /*onSubmit={}*/>
-                <TitleInput songCovered={props.songCovered} handleChange={props.handleChange}/>
+                <TitleInput titleCovered={props.titleCovered} handleChange={props.handleChange}/>
                 <Button moveTurn={props.moveTurn}/>
             </form>
         </>

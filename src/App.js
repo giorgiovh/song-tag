@@ -4,8 +4,6 @@ import Person from './components/Person'
 import Letters from './components/Letters'
 import DaysLeft from './components/DaysLeft'
 import Header from './components/Header'
-import Button from './components/Button'
-import TitleInput from './components/TitleInput'
 import Form from "./components/Form"
 import PrevSong from "./components/PrevSong"
 
@@ -20,7 +18,7 @@ class App extends Component {
       alphLetterIdx: 0,
       daysLeft: 2,
       prevSong: "Highway to Hell",
-      songCovered: "",
+      titleCovered: "",
       artistCovered: ""
     }
   }
@@ -56,7 +54,7 @@ class App extends Component {
         <PrevSong prevSong={this.state.prevSong}/>
         <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]} />
         <DaysLeft daysLeft={this.state.daysLeft} />
-        <Form moveTurn={this.moveTurn} songCovered={this.state.songCovered} handleChange={this.handleChange}/>
+        <Form moveTurn={this.moveTurn} titleCovered={this.state.titleCovered} handleChange={this.handleChange}/>
       </>
     )
   }
