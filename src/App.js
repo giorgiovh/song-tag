@@ -4,6 +4,7 @@ import Person from './components/Person'
 import Letters from './components/Letters'
 import DaysLeft from './components/DaysLeft'
 import Header from './components/Header'
+import Button from './components/Button'
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -50,7 +51,7 @@ class App extends Component {
           <input type="text" />
           <br />
         </form>
-        <button onClick={this.moveTurn}>Submit Song</button>
+        <Button moveTurn={this.moveTurn}></Button>
       </>
     )
   }
