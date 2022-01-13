@@ -47,9 +47,8 @@ class App extends Component {
         <Person person={persons[this.state.personIdx % persons.length]} />
         <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]} />
         <DaysLeft daysLeft={this.state.daysLeft} />
-        <Input />
-        <Button moveTurn={this.moveTurn} />
-        <Form />
+        {/* <Button moveTurn={this.moveTurn} /> */}
+        <Form moveTurn={this.moveTurn}/>
       </>
     )
   }

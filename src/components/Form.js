@@ -1,11 +1,13 @@
 import Input from "./Input";
 import Button from "./Button";
 
-const Form = () => {
+const Form = (props) => {
     return (
         <>
+            <label htmlFor="">Song Covered</label>
+            <br />
             <Input />
-            <Button />
+            <Button moveTurn={props.moveTurn}/>
         </>
     )
 }
