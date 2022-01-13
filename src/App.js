@@ -21,7 +21,8 @@ class App extends Component {
   render() {
     return (
       <>
-        <Person person={persons[this.state.index]}></Person>
+        {/* <Person person={persons[this.state.index]}></Person> */}
+        <Person person={persons[this.state.index % persons.length]}></Person>
         <button onClick={this.increaseIndex}>Submit Song</button>
       </>
     )
