@@ -7,6 +7,7 @@ const TitleInput = (props) => {
                 placeholder="title"
                 value={props.titleCovered}
                 onChange={props.handleChange}
+                required
             />
         </>
     )

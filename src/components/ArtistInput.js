@@ -7,6 +7,7 @@ const ArtistInput = (props) => {
                 placeholder="artist"
                 value={props.artistCovered}
                 onChange={props.handleChange}
+                required
             />
         </>
     )
