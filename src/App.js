@@ -19,9 +19,10 @@ class App extends Component {
       daysLeft: 2,
       pastSongs: [{ titleCovered: "Gigolo Aunt", artistCovered: "Syd Barrett" }, { titleCovered: "Superstition", artistCovered: "Stevie Wonder" }],
       newSong: {
-        titleCovered: "Hello",
-        artistCovered: "Oasis",
-      }
+        titleCovered: "",
+        artistCovered: "",
+      },
+      formInvalid: true
     }
   }
 
@@ -78,6 +79,7 @@ class App extends Component {
           titleCovered={this.state.newSong.titleCovered} artistCovered={this.state.newSong.artistCovered} handleChange={this.handleChange}
           handleClick={this.handleClick}
           formRef={this.formRef}
+          formInvalid={this.state.formInvalid}
         />
         <PastSongs pastSongs={this.state.pastSongs}/>
       </>

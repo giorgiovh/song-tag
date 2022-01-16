@@ -21,6 +21,7 @@ const Form = (props) => {
                 <br /><br />
                 <Button 
                     handleClick={props.handleClick}
+                    formInvalid={props.formInvalid}
                 />
             </form>
         </>
