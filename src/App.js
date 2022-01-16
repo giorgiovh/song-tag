@@ -65,7 +65,10 @@ class App extends Component {
     console.log(e.target.checkValidity());
     const newSong = {...this.state.newSong};
     newSong[e.target.name] = e.target.value;
-    this.setState({ newSong })
+    this.setState({ 
+      newSong,
+      formInvalid: !this.formRef.current.checkValidity() 
+    })
   }
 
   render() {
