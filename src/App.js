@@ -25,6 +25,8 @@ class App extends Component {
     }
   }
 
+  formRef = React.createRef();
+
   incPersonIdx = () => {
     this.setState({
       personIdx: this.state.personIdx + 1
@@ -46,6 +48,7 @@ class App extends Component {
 
   addSong = e => {
     e.preventDefault();
+    if(!this.formRef.current.checkValidity()) return;
     this.setState(state => ({
       pastSongs: [...state.pastSongs, state.newSong],
       newSong: {titleCovered: "", artistCovered: ""}
@@ -58,11 +61,11 @@ class App extends Component {
   }
 
   handleChange = e => {
+    console.log(e.target.checkValidity());
     const newSong = {...this.state.newSong};
     newSong[e.target.name] = e.target.value;
     this.setState({ newSong })
   }
-
 
   render() {
     return (
@@ -74,6 +77,7 @@ class App extends Component {
         <Form 
           titleCovered={this.state.newSong.titleCovered} artistCovered={this.state.newSong.artistCovered} handleChange={this.handleChange}
           handleClick={this.handleClick}
+          formRef={this.formRef}
         />
         <PastSongs pastSongs={this.state.pastSongs}/>
       </>
