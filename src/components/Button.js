@@ -8,6 +8,7 @@ const Button = (props) => {
             >
                 Submit Song
             </button>
+            {console.log('formInvalid',props.formInvalid)}
         </>
     )
 }

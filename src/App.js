@@ -52,7 +52,8 @@ class App extends Component {
     if(!this.formRef.current.checkValidity()) return;
     this.setState(state => ({
       pastSongs: [...state.pastSongs, state.newSong],
-      newSong: {titleCovered: "", artistCovered: ""}
+      newSong: {titleCovered: "", artistCovered: ""},
+      formInvalid: true
     }))
   }
 
