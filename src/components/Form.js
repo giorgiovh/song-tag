@@ -5,7 +5,6 @@ import Button from "./Button";
 const Form = (props) => {
     return (
         <>
-            {console.log(props.formRef)}
             <label htmlFor="">Song Covered</label>
             <br /><br />
             <form ref={props.formRef} onSubmit={props.handleClick}>

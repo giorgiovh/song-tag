@@ -63,7 +63,6 @@ class App extends Component {
   }
 
   handleChange = e => {
-    console.log(e.target.checkValidity());
     const newSong = {...this.state.newSong};
     newSong[e.target.name] = e.target.value;
     this.setState({ 
