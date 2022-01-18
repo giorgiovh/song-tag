@@ -52,8 +52,6 @@ class App extends Component {
       ? prevTitle[prevTitle.length - 1].toUpperCase()
       : null;
 
-    console.log('lastLetterOfPrevTitle', lastLetterOfPrevTitle);
-
     // if initial of song submitted === alphabet[this.state.alphLetterIdx], then incAlphLetterIdx
     // else if initial of song submitted === lastLetterOfSong, then inc lastLetterOfSong
     if (newSongInitial === currAlphLetter) {
@@ -77,6 +75,7 @@ class App extends Component {
     this.addSong(e);
     this.incPersonIdx();
     this.determineLetters();
+    console.log('lastLetterOfPrevSong', this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'][this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'].length - 1].toUpperCase())
   }
 
   handleChange = e => {
