@@ -41,16 +41,26 @@ class App extends Component {
   }
 
   determineLetters = () => {
+    let newSongInitial = this.state.newSong['titleCovered'][0].toUpperCase();
+    let currAlphLetter = alphabet[this.state.alphLetterIdx];
+
+    let prevTitle = this.state.pastSongs.length !== 0 
+      ? this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'] 
+      : null;
+
+    let lastLetterOfPrevTitle = this.state.pastSongs.length !== 0
+      ? prevTitle[prevTitle.length - 1].toUpperCase()
+      : null;
+
+    console.log('lastLetterOfPrevTitle', lastLetterOfPrevTitle);
+
     // if initial of song submitted === alphabet[this.state.alphLetterIdx], then incAlphLetterIdx
-    let newSongInitial = this.state.newSong['titleCovered'][0]
-    let currAlphLetter = alphabet[this.state.alphLetterIdx]
-    if (newSongInitial === currAlphLetter) {
-      console.log('letters match!');
-      this.incAlphLetterIdx();
-    }
-    console.log('newSongInitial', newSongInitial);
-    console.log('curreAlphLetter', currAlphLetter);
     // else if initial of song submitted === lastLetterOfSong, then inc lastLetterOfSong
+    if (newSongInitial === currAlphLetter) {
+      this.incAlphLetterIdx();
+    } else if (newSongInitial === lastLetterOfPrevTitle) {
+      console.log('move other letter');
+    }
   }
 
   addSong = e => {
