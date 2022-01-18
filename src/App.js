@@ -40,8 +40,7 @@ class App extends Component {
     })
   }
 
-  moveTurn = () => {
-    this.incPersonIdx();
+  determineLetters = () => {
     // if initial of song submitted === alphabet[this.state.alphLetterIdx], then incAlphLetterIdx
     let newSongInitial = this.state.newSong['titleCovered'][0]
     let currAlphLetter = alphabet[this.state.alphLetterIdx]
@@ -66,8 +65,8 @@ class App extends Component {
 
   handleClick = (e) => {
     this.addSong(e);
-    this.moveTurn();
-    // console.log(this.state.newSong);
+    this.incPersonIdx();
+    this.determineLetters();
   }
 
   handleChange = e => {
