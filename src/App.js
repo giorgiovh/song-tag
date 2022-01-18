@@ -43,7 +43,14 @@ class App extends Component {
   moveTurn = () => {
     this.incPersonIdx();
     // if initial of song submitted === alphabet[this.state.alphLetterIdx], then incAlphLetterIdx
-    this.incAlphLetterIdx();
+    let newSongInitial = this.state.newSong['titleCovered'][0]
+    let currAlphLetter = alphabet[this.state.alphLetterIdx]
+    if (newSongInitial === currAlphLetter) {
+      console.log('letters match!');
+      this.incAlphLetterIdx();
+    }
+    console.log('newSongInitial', newSongInitial);
+    console.log('curreAlphLetter', currAlphLetter);
     // else if initial of song submitted === lastLetterOfSong, then inc lastLetterOfSong
   }
 
@@ -58,8 +65,9 @@ class App extends Component {
   }
 
   handleClick = (e) => {
-    this.moveTurn();
     this.addSong(e);
+    this.moveTurn();
+    // console.log(this.state.newSong);
   }
 
   handleChange = e => {
