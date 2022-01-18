@@ -1,10 +1,10 @@
 const TitleInput = (props) => {
     return (
         <>
+            <span>Title</span>
             <input 
                 type="text" 
                 name="titleCovered"
-                placeholder="title"
                 value={props.titleCovered}
                 onChange={props.handleChange}
                 required

@@ -1,10 +1,10 @@
 const ArtistInput = (props) => {
     return (
         <>
+            <span>Artist</span>
             <input 
                 type="text" 
                 name="artistCovered"
-                placeholder="artist"
                 value={props.artistCovered}
                 onChange={props.handleChange}
                 required
