@@ -93,7 +93,7 @@ class App extends Component {
       <>
         <Header />
         <Person person={persons[this.state.personIdx % persons.length]} />
-        <Letters letter={alphabet[this.state.alphLetterIdx % alphabet.length]} />
+        <Letters aplhLetter={alphabet[this.state.alphLetterIdx % alphabet.length]} />
         <DaysLeft daysLeft={this.state.daysLeft} />
         <Form 
           titleCovered={this.state.newSong.titleCovered} artistCovered={this.state.newSong.artistCovered} handleChange={this.handleChange}

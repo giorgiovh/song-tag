@@ -1,6 +1,6 @@
 const Letters = (props) => {
     return (
-        <h2>Choose From: {props.letter}</h2>
+        <h2>Choose From: {props.aplhLetter} or </h2>
     )
 }
 
