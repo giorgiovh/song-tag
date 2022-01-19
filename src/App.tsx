@@ -9,9 +9,23 @@ import PastSongs from "./components/PastSongs";
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-class App extends Component {
-  constructor() {
-    super();
+
+interface Song {
+  titleCovered: string
+  artistCovered: string
+}
+interface AppState {
+  personIdx: number
+  alphLetterIdx: number
+  lastLetterOfPrevSong?: string
+  daysLeft: number
+  pastSongs: Song[]
+  newSong: Song
+  formInvalid: boolean
+}
+class App extends Component<{}, AppState> {
+  constructor(props = {}) {
+    super(props);
 
     this.state = {
       personIdx: 0,
@@ -27,7 +41,7 @@ class App extends Component {
     }
   }
 
-  formRef = React.createRef();
+  formRef = React.createRef<HTMLInputElement>();
 
   incPersonIdx() {
     this.setState({
@@ -44,11 +58,11 @@ class App extends Component {
   setLastLetterOfPrevSong() {
     let prevTitle = this.state.pastSongs.length
       ? this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered']
-      : null;
+      : undefined;
 
     let lastLetterOfPrevTitle = prevTitle
       ? prevTitle[prevTitle.length - 1].toUpperCase()
-      : null;
+      : undefined;
 
     this.setState({ lastLetterOfPrevSong: lastLetterOfPrevTitle });
   }
@@ -66,9 +80,8 @@ class App extends Component {
     this.checkIfShouldMoveAlphLetter();
   }
 
-  addSong = e => {
-    e.preventDefault();
-    if(!this.formRef.current.checkValidity()) return;
+  addSong = () => {
+    if (!this.formRef.current?.checkValidity()) return;
     this.setState(state => ({
       pastSongs: [...state.pastSongs, state.newSong],
       newSong: {titleCovered: "", artistCovered: ""},
@@ -76,8 +89,9 @@ class App extends Component {
     }))
   }
 
-  handleClick = e => {
-    this.addSong(e);
+  handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    this.addSong();
     this.incPersonIdx();
     this.determineLetters();
     console.log(
@@ -86,12 +100,27 @@ class App extends Component {
     )
   }
 
-  handleChange = e => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSong = {...this.state.newSong};
-    newSong[e.target.name] = e.target.value;
+
+    // newSong[e.target.name] = e.target.value;
+
+    switch (e.target.name) {
+      case "titleCovered":
+        newSong.titleCovered = e.target.value;
+        break;
+    
+      case "artistCovered":
+        newSong.artistCovered = e.target.value;
+        break;
+
+      default:
+        break;
+    }
+
     this.setState({ 
       newSong,
-      formInvalid: !this.formRef.current.checkValidity() 
+      formInvalid: !this.formRef.current?.checkValidity() 
     })
   }
 
