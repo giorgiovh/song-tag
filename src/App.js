@@ -16,7 +16,7 @@ class App extends Component {
     this.state = {
       personIdx: 0,
       alphLetterIdx: 0,
-      lastLetterOfPrevSong: "C",
+      lastLetterOfPrevSong: "",
       daysLeft: 2,
       pastSongs: [],
       newSong: {
@@ -54,11 +54,8 @@ class App extends Component {
       : null;
 
     // if initial of song submitted === alphabet[this.state.alphLetterIdx], then incAlphLetterIdx
-    // else if initial of song submitted === lastLetterOfSong, then inc lastLetterOfSong
     if (newSongInitial === currAlphLetter) {
       this.incAlphLetterIdx();
-    } else if (newSongInitial === lastLetterOfPrevTitle) {
-      console.log('move other letter');
     }
   }
 
