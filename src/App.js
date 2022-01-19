@@ -29,34 +29,41 @@ class App extends Component {
 
   formRef = React.createRef();
 
-  incPersonIdx = () => {
+  incPersonIdx() {
     this.setState({
       personIdx: this.state.personIdx + 1
     })
   }
 
-  incAlphLetterIdx = () => {
+  incAlphLetterIdx() {
     this.setState({
       alphLetterIdx: this.state.alphLetterIdx + 1
     })
   }
 
-  determineLetters = () => {
-    let newSongInitial = this.state.newSong['titleCovered'][0].toUpperCase();
-    let currAlphLetter = alphabet[this.state.alphLetterIdx];
-
-    let prevTitle = this.state.pastSongs.length !== 0 
-      ? this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'] 
+  setLastLetterOfPrevSong() {
+    let prevTitle = this.state.pastSongs.length
+      ? this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered']
       : null;
 
     let lastLetterOfPrevTitle = prevTitle
       ? prevTitle[prevTitle.length - 1].toUpperCase()
       : null;
 
-    // if initial of song submitted === alphabet[this.state.alphLetterIdx], then incAlphLetterIdx
+    this.setState({ lastLetterOfPrevSong: lastLetterOfPrevTitle });
+  }
+
+  checkIfShouldMoveAlphLetter() {
+    let newSongInitial = this.state.newSong['titleCovered'][0].toUpperCase();
+    let currAlphLetter = alphabet[this.state.alphLetterIdx];
     if (newSongInitial === currAlphLetter) {
       this.incAlphLetterIdx();
     }
+  }
+
+  determineLetters() {
+    this.setLastLetterOfPrevSong();
+    this.checkIfShouldMoveAlphLetter();
   }
 
   addSong = e => {
@@ -69,11 +76,14 @@ class App extends Component {
     }))
   }
 
-  handleClick = (e) => {
+  handleClick = e => {
     this.addSong(e);
     this.incPersonIdx();
     this.determineLetters();
-    console.log('lastLetterOfPrevSong', this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'][this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'].length - 1].toUpperCase())
+    console.log(
+      'lastLetterOfPrevSong', 
+      this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'][this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'].length - 1].toUpperCase()
+    )
   }
 
   handleChange = e => {
