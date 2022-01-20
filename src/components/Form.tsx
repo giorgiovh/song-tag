@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import TitleInput from "./TitleInput";
-import ArtistInput from "./ArtistInput";
-import Button from "./Button";
+import { Song } from "../Song"
 
 interface FormProps {
-    onSubmit: React.FormEventHandler<HTMLFormElement> | undefined
+    handleClick(song: Song): void
 }
 
 interface FormState {
@@ -32,7 +30,7 @@ class Form extends Component<FormProps, FormState> {
         this.setState({artistText: e.target.value}, () => {this.validateButton()})
     }
 
-    validateButton() {
+    validateButton = () => {
         if (this.state.titleText && this.state.artistText) {
             this.setState({isButtonDisabled: false})
         } else {
@@ -40,12 +38,21 @@ class Form extends Component<FormProps, FormState> {
         }
     }
 
+    createAndSubmitSong = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        if (this.state.artistText && this.state.titleText) { 
+            const song: Song = { artistCovered: this.state.artistText, titleCovered: this.state.titleText }
+            this.props.handleClick(song)
+        }
+
+    }
+
     render() {
         return (
             <>
                 <label htmlFor="">Song Covered</label>
                 <br /><br />
-                <form onSubmit={this.props.onSubmit}>
+                <form onSubmit={this.createAndSubmitSong}>
                     <span>Title</span>
                     <input
                         type="text"
