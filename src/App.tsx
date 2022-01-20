@@ -41,8 +41,6 @@ class App extends Component<{}, AppState> {
     }
   }
 
-  formRef = React.createRef<HTMLInputElement>();
-
   incPersonIdx() {
     this.setState({
       personIdx: this.state.personIdx + 1
@@ -81,7 +79,6 @@ class App extends Component<{}, AppState> {
   }
 
   addSong = () => {
-    if (!this.formRef.current?.checkValidity()) return;
     this.setState(state => ({
       pastSongs: [...state.pastSongs, state.newSong],
       newSong: {titleCovered: "", artistCovered: ""},
@@ -119,8 +116,7 @@ class App extends Component<{}, AppState> {
     }
 
     this.setState({ 
-      newSong,
-      formInvalid: !this.formRef.current?.checkValidity() 
+      newSong
     })
   }
 
@@ -131,12 +127,7 @@ class App extends Component<{}, AppState> {
         <Person person={persons[this.state.personIdx % persons.length]} />
         <Letters aplhLetter={alphabet[this.state.alphLetterIdx % alphabet.length]} lastLetterOfPrevSong={this.state.lastLetterOfPrevSong}/>
         <DaysLeft daysLeft={this.state.daysLeft} />
-        <Form 
-          titleCovered={this.state.newSong.titleCovered} artistCovered={this.state.newSong.artistCovered} handleChange={this.handleChange}
-          handleClick={this.handleClick}
-          formRef={this.formRef}
-          formInvalid={this.state.formInvalid}
-        />
+        <Form onSubmit={undefined}/>
         <PastSongs pastSongs={this.state.pastSongs}/>
       </>
     )
