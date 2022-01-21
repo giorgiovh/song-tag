@@ -68,6 +68,8 @@ class App extends Component<{}, AppState> {
     this.checkIfShouldMoveAlphLetter();
   }
 
+  // *Continue here: addSong is currently doing two things (adding a song and determineLetters) so we have to create a new function that combines the two to make it more readable
+
   addSong = (song: Song) => {
     this.setState(state => ({
       pastSongs: [...state.pastSongs, song]

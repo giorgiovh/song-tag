@@ -49,7 +49,6 @@ class Form extends Component<FormProps, FormState> {
         console.log(this.formRef);
         
         this.formRef.current?.reset();
-        // *CONTINUE HERE* clear inputs after submitting form here (see notes on google task and one note)
     }
 
 
