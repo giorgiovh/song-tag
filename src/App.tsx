@@ -17,7 +17,6 @@ interface AppState {
   lastLetterOfPrevSong?: string
   daysLeft: number
   pastSongs: Song[]
-  newSong: Song
 }
 class App extends Component<{}, AppState> {
   constructor(props = {}) {
@@ -28,11 +27,7 @@ class App extends Component<{}, AppState> {
       alphLetterIdx: 0,
       lastLetterOfPrevSong: "",
       daysLeft: 2,
-      pastSongs: [],
-      newSong: {
-        titleCovered: "",
-        artistCovered: "",
-      }
+      pastSongs: []
     }
   }
 
@@ -61,7 +56,7 @@ class App extends Component<{}, AppState> {
   }
 
   checkIfShouldMoveAlphLetter() {
-    let newSongInitial = this.state.newSong['titleCovered'][0].toUpperCase();
+    let newSongInitial = this.state.pastSongs.at(-1)?.titleCovered[0].toUpperCase();
     let currAlphLetter = alphabet[this.state.alphLetterIdx];
     if (newSongInitial === currAlphLetter) {
       this.incAlphLetterIdx();
@@ -75,19 +70,18 @@ class App extends Component<{}, AppState> {
 
   addSong = (song: Song) => {
     this.setState(state => ({
-      pastSongs: [...state.pastSongs, song],
-      newSong: {titleCovered: "", artistCovered: ""}
-    }))
+      pastSongs: [...state.pastSongs, song]
+    }), () => this.determineLetters())
   }
 
   handleClick = (song: Song) => {
     this.addSong(song);
     this.incPersonIdx();
-    this.determineLetters();
-    console.log(
-      'lastLetterOfPrevSong', 
-      this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'][this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'].length - 1].toUpperCase()
-    )
+    // this.determineLetters();
+    // console.log(
+    //   'lastLetterOfPrevSong', 
+    //   this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'][this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'].length - 1].toUpperCase()
+    // )
   }
 
   render() {

@@ -23,36 +23,45 @@ class Form extends Component<FormProps, FormState> {
     }
 
     handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({titleText: e.target.value}, () => {this.validateButton()})
+        this.setState({ titleText: e.target.value }, () => { this.validateButton() })
     }
 
     handleArtistChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({artistText: e.target.value}, () => {this.validateButton()})
+        this.setState({ artistText: e.target.value }, () => { this.validateButton() })
     }
 
     validateButton = () => {
         if (this.state.titleText && this.state.artistText) {
-            this.setState({isButtonDisabled: false})
+            this.setState({ isButtonDisabled: false })
         } else {
-            this.setState({isButtonDisabled: true})
+            this.setState({ isButtonDisabled: true })
         }
     }
+
+    formRef = React.createRef<HTMLFormElement>()
 
     createAndSubmitSong = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        if (this.state.artistText && this.state.titleText) { 
+        if (this.state.artistText && this.state.titleText) {
             const song: Song = { artistCovered: this.state.artistText, titleCovered: this.state.titleText }
             this.props.handleClick(song)
         }
-
+        console.log(this.formRef);
+        
+        this.formRef.current?.reset();
+        // *CONTINUE HERE* clear inputs after submitting form here (see notes on google task and one note)
     }
+
 
     render() {
         return (
             <>
                 <label htmlFor="">Song Covered</label>
                 <br /><br />
-                <form onSubmit={this.createAndSubmitSong}>
+                <form 
+                    onSubmit={this.createAndSubmitSong}
+                    ref={this.formRef}
+                >
                     <span>Title</span>
                     <input
                         type="text"
