@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Song } from "../Song"
+import { TextField, Button } from '@mui/material';
 
 interface FormProps {
     handleClick(song: Song): void
@@ -60,28 +61,29 @@ class Form extends Component<FormProps, FormState> {
                     onSubmit={this.createAndSubmitSong}
                     ref={this.formRef}
                 >
-                    <span>Title</span>
-                    <input
-                        type="text"
-                        name="titleCovered"
-                        required
+                    <TextField 
+                        id="outlined-basic" 
+                        label="Title" 
+                        variant="outlined"
+                        required 
                         onChange={this.handleTitleChange}
                     />
                     <br /><br />
-                    <span>Artist</span>
-                    <input
-                        type="text"
-                        name="artistCovered"
-                        required
+                    <TextField 
+                        id="outlined-basic" 
+                        label="Artist" 
+                        variant="outlined" 
+                        required 
                         onChange={this.handleArtistChange}
                     />
                     <br /><br />
-                    <button
+                    <Button 
+                        variant="contained"
                         type="submit"
                         disabled={this.state.isButtonDisabled}
                     >
                         Submit Song
-                    </button>
+                    </Button>
                 </form>
             </>
         )

@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Form from "./components/Form"
 import PastSongs from "./components/PastSongs";
 import { Song } from "./Song"
+import { Box } from "@mui/material"
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -85,14 +86,14 @@ class App extends Component<{}, AppState> {
 
   render() {
     return (
-      <>
+      <Box m={2}>
         <Header />
         <Person person={persons[this.state.personIdx % persons.length]} />
         <Letters aplhLetter={alphabet[this.state.alphLetterIdx % alphabet.length]} lastLetterOfPrevSong={this.state.lastLetterOfPrevSong}/>
         <DaysLeft daysLeft={this.state.daysLeft} />
         <Form handleClick={this.handleClick}/>
         <PastSongs pastSongs={this.state.pastSongs}/>
-      </>
+      </Box>
     )
   }
 }
