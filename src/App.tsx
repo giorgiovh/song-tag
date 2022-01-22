@@ -6,22 +6,17 @@ import DaysLeft from './components/DaysLeft'
 import Header from './components/Header'
 import Form from "./components/Form"
 import PastSongs from "./components/PastSongs";
+import { Song } from "./Song"
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
-interface Song {
-  titleCovered: string
-  artistCovered: string
-}
 interface AppState {
   personIdx: number
   alphLetterIdx: number
   lastLetterOfPrevSong?: string
   daysLeft: number
   pastSongs: Song[]
-  newSong: Song
-  formInvalid: boolean
 }
 class App extends Component<{}, AppState> {
   constructor(props = {}) {
@@ -32,16 +27,9 @@ class App extends Component<{}, AppState> {
       alphLetterIdx: 0,
       lastLetterOfPrevSong: "",
       daysLeft: 2,
-      pastSongs: [],
-      newSong: {
-        titleCovered: "",
-        artistCovered: "",
-      },
-      formInvalid: true
+      pastSongs: []
     }
   }
-
-  formRef = React.createRef<HTMLInputElement>();
 
   incPersonIdx() {
     this.setState({
@@ -68,7 +56,7 @@ class App extends Component<{}, AppState> {
   }
 
   checkIfShouldMoveAlphLetter() {
-    let newSongInitial = this.state.newSong['titleCovered'][0].toUpperCase();
+    let newSongInitial = this.state.pastSongs.at(-1)?.titleCovered[0].toUpperCase();
     let currAlphLetter = alphabet[this.state.alphLetterIdx];
     if (newSongInitial === currAlphLetter) {
       this.incAlphLetterIdx();
@@ -80,48 +68,19 @@ class App extends Component<{}, AppState> {
     this.checkIfShouldMoveAlphLetter();
   }
 
-  addSong = () => {
-    if (!this.formRef.current?.checkValidity()) return;
+  addSong = (song: Song, callBack?: Function) => {
     this.setState(state => ({
-      pastSongs: [...state.pastSongs, state.newSong],
-      newSong: {titleCovered: "", artistCovered: ""},
-      formInvalid: true
-    }))
-  }
-
-  handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    this.addSong();
-    this.incPersonIdx();
-    this.determineLetters();
-    console.log(
-      'lastLetterOfPrevSong', 
-      this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'][this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'].length - 1].toUpperCase()
-    )
-  }
-
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSong = {...this.state.newSong};
-
-    // newSong[e.target.name] = e.target.value;
-
-    switch (e.target.name) {
-      case "titleCovered":
-        newSong.titleCovered = e.target.value;
-        break;
-    
-      case "artistCovered":
-        newSong.artistCovered = e.target.value;
-        break;
-
-      default:
-        break;
-    }
-
-    this.setState({ 
-      newSong,
-      formInvalid: !this.formRef.current?.checkValidity() 
+      pastSongs: [...state.pastSongs, song]
+    }), () => {
+      if (callBack) {
+        callBack()
+      }
     })
+  }
+
+  handleClick = (song: Song) => {
+    this.addSong(song, () => this.determineLetters());
+    this.incPersonIdx();
   }
 
   render() {
@@ -131,12 +90,7 @@ class App extends Component<{}, AppState> {
         <Person person={persons[this.state.personIdx % persons.length]} />
         <Letters aplhLetter={alphabet[this.state.alphLetterIdx % alphabet.length]} lastLetterOfPrevSong={this.state.lastLetterOfPrevSong}/>
         <DaysLeft daysLeft={this.state.daysLeft} />
-        <Form 
-          titleCovered={this.state.newSong.titleCovered} artistCovered={this.state.newSong.artistCovered} handleChange={this.handleChange}
-          handleClick={this.handleClick}
-          formRef={this.formRef}
-          formInvalid={this.state.formInvalid}
-        />
+        <Form handleClick={this.handleClick}/>
         <PastSongs pastSongs={this.state.pastSongs}/>
       </>
     )
