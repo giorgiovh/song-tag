@@ -47,6 +47,7 @@ class Form extends Component<FormProps, FormState> {
             this.props.handleClick(song)
         }
         this.formRef.current?.reset();
+        this.setState({isButtonDisabled: true})
     }
 
 
