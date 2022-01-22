@@ -68,22 +68,19 @@ class App extends Component<{}, AppState> {
     this.checkIfShouldMoveAlphLetter();
   }
 
-  // *Continue here: addSong is currently doing two things (adding a song and determineLetters) so we have to create a new function that combines the two to make it more readable
-
-  addSong = (song: Song) => {
+  addSong = (song: Song, callBack?: Function) => {
     this.setState(state => ({
       pastSongs: [...state.pastSongs, song]
-    }), () => this.determineLetters())
+    }), () => {
+      if (callBack) {
+        callBack()
+      }
+    })
   }
 
   handleClick = (song: Song) => {
-    this.addSong(song);
+    this.addSong(song, () => this.determineLetters());
     this.incPersonIdx();
-    // this.determineLetters();
-    // console.log(
-    //   'lastLetterOfPrevSong', 
-    //   this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'][this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered'].length - 1].toUpperCase()
-    // )
   }
 
   render() {

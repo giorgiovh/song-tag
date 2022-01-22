@@ -46,8 +46,6 @@ class Form extends Component<FormProps, FormState> {
             const song: Song = { artistCovered: this.state.artistText, titleCovered: this.state.titleText }
             this.props.handleClick(song)
         }
-        console.log(this.formRef);
-        
         this.formRef.current?.reset();
     }
 
