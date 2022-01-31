@@ -1,7 +1,6 @@
 import { Firestore, getFirestore } from "firebase/firestore";
-import { collection, addDoc, doc, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, onSnapshot } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { Song } from "../Song";
 
 class Database {
@@ -21,7 +20,6 @@ class Database {
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
 
         this.db = getFirestore(app);
     }
@@ -43,9 +41,9 @@ class Database {
     }
 
     public readUpdates(callback: (songs: Song[]) => void) {
-        const unsub = onSnapshot(collection(this.db, "songs"), (doc) => {
+        onSnapshot(collection(this.db, "songs"), (doc) => {
             // this functions converts "doc" into an array that we can use
-            
+
             var songs: Song[] = [];
 
             doc.forEach((doc) => {
