@@ -1,5 +1,5 @@
 import { Firestore, getFirestore } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, onSnapshot } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { Song } from "../Song";
@@ -40,6 +40,22 @@ class Database {
         } catch (e) {
             console.error("Error adding document: ", e);
         }
+    }
+
+    public readUpdates(callback: (songs: Song[]) => void) {
+        const unsub = onSnapshot(collection(this.db, "songs"), (doc) => {
+            // this functions converts "doc" into an array that we can use
+            
+            var songs: Song[] = [];
+
+            doc.forEach((doc) => {
+                const song: Song = { artistCovered: doc.data().artist, titleCovered: doc.data().title }
+                songs.push(song)
+            })
+
+            // the callback is used so we can set the state from App
+            callback(songs);
+        })
     }
 }
 

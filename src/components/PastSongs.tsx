@@ -1,4 +1,10 @@
-const PastSongs = (props) => {
+import { Song } from "../Song"
+
+interface PastSongsProps {
+    pastSongs: Song[]
+}
+
+const PastSongs = (props: PastSongsProps) => {
     return (
         <>
             <h2>Past Songs</h2>

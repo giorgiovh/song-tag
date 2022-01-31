@@ -33,6 +33,14 @@ class App extends Component<{}, AppState> {
     }
   }
 
+  componentDidMount() {
+    Database.Instance.readUpdates((songs) => {
+      this.setState({
+        pastSongs: songs
+      })
+    });
+  }
+
   incPersonIdx() {
     this.setState({
       personIdx: this.state.personIdx + 1
