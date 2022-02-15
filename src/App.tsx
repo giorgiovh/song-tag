@@ -34,7 +34,7 @@ class App extends Component<{}, AppState> {
   }
 
   componentDidMount() {
-    Database.Instance.readUpdates((songs) => {
+    Database.Instance.setUpdateListener((songs) => {
       this.setState({
         pastSongs: songs
       })
