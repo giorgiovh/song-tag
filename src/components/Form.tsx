@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Song } from "../Song"
 import { TextField, Button } from '@mui/material';
+import { Timestamp } from "firebase/firestore";
 
 interface FormProps {
     handleClick(song: Song): void
@@ -44,7 +45,11 @@ class Form extends Component<FormProps, FormState> {
     createAndSubmitSong = (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (this.state.artistText && this.state.titleText) {
-            const song: Song = { artistCovered: this.state.artistText, titleCovered: this.state.titleText }
+            const song: Song = { 
+                artistCovered: this.state.artistText, 
+                titleCovered: this.state.titleText,
+                timestamp: Timestamp.now() 
+            }
             this.props.handleClick(song)
         }
         this.formRef.current?.reset();

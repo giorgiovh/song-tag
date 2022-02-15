@@ -32,7 +32,8 @@ class Database {
         try {
             const docRef = await addDoc(collection(this.db, "songs"), {
                 artist: song.artistCovered,
-                title: song.titleCovered
+                title: song.titleCovered,
+                timestamp: song.timestamp
             });
             console.log("Document written with ID: ", docRef.id);
         } catch (e) {
@@ -49,7 +50,11 @@ class Database {
             var songs: Song[] = [];
 
             doc.forEach((doc) => {
-                const song: Song = { artistCovered: doc.data().artist, titleCovered: doc.data().title }
+                const song: Song = { 
+                    artistCovered: doc.data().artist, 
+                    titleCovered: doc.data().title,
+                    timestamp: doc.data().timestamp
+                }
                 songs.push(song)
             })
 
