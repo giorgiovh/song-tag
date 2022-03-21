@@ -80,14 +80,22 @@ class App extends Component<{}, AppState> {
 
   //TODO: Continue setting up data
   addSong = async (song: Song, callBack?: Function) => {
-    Database.Instance.addSong(song);
-    this.setState(state => ({
-      pastSongs: [...state.pastSongs, song]
-    }), () => {
-      if (callBack) {
-        callBack()
-      }
+    console.log(this.state.pastSongs)
+    let filtered = this.state.pastSongs.filter((pastSong) => {
+      return song.artistCovered === pastSong.artistCovered && song.titleCovered === pastSong.titleCovered
     })
+    if (filtered.length > 0) {
+      alert("This song has already been added. Please choose a different song")
+    } else {
+      Database.Instance.addSong(song);
+      this.setState(state => ({
+        pastSongs: [...state.pastSongs, song]
+      }), () => {
+        if (callBack) {
+          callBack()
+        }
+      })
+    }
   }
 
   handleClick = (song: Song) => {
