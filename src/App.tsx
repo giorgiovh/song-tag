@@ -79,17 +79,17 @@ class App extends Component<{}, AppState> {
     this.checkIfShouldMoveAlphLetter();
   }
 
-  capitalizeEachWord(songName: string) {
-    let splitName = songName.split(" ")
+  capitalizeEachWord(name: string) {
+    let splitName = name.split(" ")
     for (let i = 0; i < splitName.length; i++) {
       splitName[i] = splitName[i][0].toLocaleUpperCase() + splitName[i].substr(1)
     }
     return splitName.join(" ")
   }
 
-  //LAST THING WE DID: added check to see if song we're trying to add has already been added
   addSong = async (song: Song, callBack?: Function) => {
     song.titleCovered = this.capitalizeEachWord(song.titleCovered)
+    song.artistCovered = this.capitalizeEachWord(song.artistCovered)
 
     let filtered = this.state.pastSongs.filter((pastSong) => {
       return song.artistCovered === pastSong.artistCovered && song.titleCovered === pastSong.titleCovered
