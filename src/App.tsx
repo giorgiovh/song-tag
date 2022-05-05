@@ -13,6 +13,7 @@ import Database from "./data/database";
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
+
 interface AppState {
   personIdx: number
   alphLetterIdx: number
@@ -59,7 +60,7 @@ class App extends Component<{}, AppState> {
       : undefined;
 
     let lastLetterOfPrevTitle = prevTitle
-      ? prevTitle[prevTitle.length - 1].toUpperCase()
+      ? prevTitle.at(-1)?.toUpperCase()
       : undefined;
 
     this.setState({ lastLetterOfPrevSong: lastLetterOfPrevTitle });
@@ -78,9 +79,18 @@ class App extends Component<{}, AppState> {
     this.checkIfShouldMoveAlphLetter();
   }
 
-  //TODO: Continue setting up data
+  capitalizeEachWord(songName: string) {
+    let splitName = songName.split(" ")
+    for (let i = 0; i < splitName.length; i++) {
+      splitName[i] = splitName[i][0].toLocaleUpperCase() + splitName[i].substr(1)
+    }
+    return splitName.join(" ")
+  }
+
+  //LAST THING WE DID: added check to see if song we're trying to add has already been added
   addSong = async (song: Song, callBack?: Function) => {
-    console.log(this.state.pastSongs)
+    song.titleCovered = this.capitalizeEachWord(song.titleCovered)
+
     let filtered = this.state.pastSongs.filter((pastSong) => {
       return song.artistCovered === pastSong.artistCovered && song.titleCovered === pastSong.titleCovered
     })
