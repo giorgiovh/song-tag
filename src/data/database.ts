@@ -28,7 +28,7 @@ class Database {
         return this._instance || (this._instance = new this())
     }
 
-    public async addSong(song: Song) {
+    public async addSongToDatabase(song: Song) {
         try {
             const docRef = await addDoc(collection(this.db, "songs"), {
                 artist: song.artistCovered,

@@ -13,7 +13,6 @@ import Database from "./data/database";
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
-
 interface AppState {
   personIdx: number
   alphLetterIdx: number
@@ -87,19 +86,22 @@ class App extends Component<{}, AppState> {
     return splitName.join(" ")
   }
 
-  addSong = async (song: Song, callBack?: Function) => {
-    song.titleCovered = this.capitalizeEachWord(song.titleCovered)
-    song.artistCovered = this.capitalizeEachWord(song.artistCovered)
+  addSong = async (newSong: Song, callBack?: Function) => {
+    // Capitalize the title and artist covered
+    newSong.titleCovered = this.capitalizeEachWord(newSong.titleCovered)
+    newSong.artistCovered = this.capitalizeEachWord(newSong.artistCovered)
 
-    let filtered = this.state.pastSongs.filter((pastSong) => {
-      return song.artistCovered === pastSong.artistCovered && song.titleCovered === pastSong.titleCovered
+    // Check if song has already been added
+    let songAlreadyCovered = this.state.pastSongs.filter((pastSong) => {
+      return newSong.artistCovered === pastSong.artistCovered && newSong.titleCovered === pastSong.titleCovered
     })
-    if (filtered.length > 0) {
+
+    if (songAlreadyCovered.length > 0) {
       alert("This song has already been added. Please choose a different song")
     } else {
-      Database.Instance.addSong(song);
+      Database.Instance.addSongToDatabase(newSong);
       this.setState(state => ({
-        pastSongs: [...state.pastSongs, song]
+        pastSongs: [...state.pastSongs, newSong]
       }), () => {
         if (callBack) {
           callBack()
