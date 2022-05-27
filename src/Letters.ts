@@ -1,9 +1,9 @@
-export interface Letters {
+export interface LettersDataType {
     alphabetLetter: string
     lastLetterOfPrevSong: string
 }
 
-const createNextLetters = (songTitle: string, letters: Letters) => {
+const createNextLetters = (songTitle: string, letters: LettersDataType) => {
     const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
     const newLastLetterOfPrevSong = songTitle.at(-1)!
@@ -14,7 +14,7 @@ const createNextLetters = (songTitle: string, letters: Letters) => {
         newAlphabetLetter = alphabet[alphabet.indexOf(songTitleInitial) + 1]
     }
     
-    const nextLetters: Letters = {
+    const nextLetters: LettersDataType = {
         alphabetLetter: newAlphabetLetter,
         lastLetterOfPrevSong: newLastLetterOfPrevSong
     }

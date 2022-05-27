@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Form from "./components/Form"
 import PastSongs from "./components/PastSongs";
 import { Song } from "./Song"
+import { LettersDataType } from "./Letters"
 import { Box } from "@mui/material"
 import Database from "./data/database";
 
@@ -113,6 +114,10 @@ class App extends Component<{}, AppState> {
   handleClick = (song: Song) => {
     this.addSong(song, () => this.determineLetters());
     this.incPersonIdx();
+  }
+
+  updateLetters = async (letters: LettersDataType) => {
+    Database.Instance.updateLettersOnDatabase(letters)
   }
 
   render() {

@@ -2,6 +2,7 @@ import { Firestore, getFirestore, orderBy, query } from "firebase/firestore";
 import { collection, addDoc, onSnapshot } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { Song } from "../Song";
+import { LettersDataType } from "../Letters";
 
 class Database {
     private static _instance: Database;
@@ -61,6 +62,10 @@ class Database {
             // the callback is used so we can set the state from App
             callback(songs);
         })
+    }
+
+    public async updateLettersOnDatabase(letters: LettersDataType) {
+        // add code here
     }
 }
 
