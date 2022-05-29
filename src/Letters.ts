@@ -13,7 +13,7 @@ const createNextLetters = (songTitle: string, letters: Letters) => {
     if (songTitleInitial === letters.alphabetLetter) {
         newAlphabetLetter = alphabet[alphabet.indexOf(songTitleInitial) + 1]
     }
-    
+
     const nextLetters: Letters = {
         alphabetLetter: newAlphabetLetter,
         lastLetterOfPrevSong: newLastLetterOfPrevSong

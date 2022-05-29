@@ -12,12 +12,10 @@ import { Box } from "@mui/material"
 import Database from "./data/database";
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
-const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
 interface AppState {
   personIdx: number
-  alphLetterIdx: number
-  lastLetterOfPrevSong?: string
+  letters: Letters
   daysLeft: number
   pastSongs: Song[]
 }
@@ -27,8 +25,10 @@ class App extends Component<{}, AppState> {
 
     this.state = {
       personIdx: 0,
-      alphLetterIdx: 0,
-      lastLetterOfPrevSong: "",
+      letters: {
+        alphabetLetter: "A",
+        lastLetterOfPrevSong: undefined
+      },
       daysLeft: 2,
       pastSongs: []
     }
@@ -43,6 +43,7 @@ class App extends Component<{}, AppState> {
 
     Database.Instance.setLettersUpdateListener((letters) => {
       this.setState({
+        letters: letters
       })
     })
   }
@@ -51,37 +52,6 @@ class App extends Component<{}, AppState> {
     this.setState({
       personIdx: this.state.personIdx + 1
     })
-  }
-
-  incAlphLetterIdx() {
-    this.setState({
-      alphLetterIdx: this.state.alphLetterIdx + 1
-    })
-  }
-
-  setLastLetterOfPrevSong() {
-    let prevTitle = this.state.pastSongs.length
-      ? this.state.pastSongs[this.state.pastSongs.length - 1]['titleCovered']
-      : undefined;
-
-    let lastLetterOfPrevTitle = prevTitle
-      ? prevTitle.at(-1)?.toUpperCase()
-      : undefined;
-
-    this.setState({ lastLetterOfPrevSong: lastLetterOfPrevTitle });
-  }
-
-  checkIfShouldMoveAlphLetter() {
-    let newSongInitial = this.state.pastSongs.at(-1)?.titleCovered[0].toUpperCase();
-    let currAlphLetter = alphabet[this.state.alphLetterIdx];
-    if (newSongInitial === currAlphLetter) {
-      this.incAlphLetterIdx();
-    }
-  }
-
-  determineLetters() {
-    this.setLastLetterOfPrevSong();
-    this.checkIfShouldMoveAlphLetter();
   }
 
   updateLetters = async (letters: Letters) => {
@@ -120,24 +90,19 @@ class App extends Component<{}, AppState> {
     }
   }
 
-
   handleClick = async (song: Song) => {
     await this.addSong(song);
-    this.determineLetters()
-    this.updateLetters({
-      alphabetLetter: alphabet[this.state.alphLetterIdx], 
-      lastLetterOfPrevSong: this.state.lastLetterOfPrevSong
-    })
-    this.incPersonIdx();
   }
-
 
   render() {
     return (
       <Box m={2}>
         <Header />
         <Person person={persons[this.state.personIdx % persons.length]} />
-        <LettersComponent aplhLetter={alphabet[this.state.alphLetterIdx % alphabet.length]} lastLetterOfPrevSong={this.state.lastLetterOfPrevSong} />
+        <LettersComponent
+          aplhLetter={this.state.letters.alphabetLetter}
+          lastLetterOfPrevSong={this.state.letters.lastLetterOfPrevSong}
+        />
         <DaysLeft daysLeft={this.state.daysLeft} />
         <Form handleClick={this.handleClick} />
         <PastSongs pastSongs={this.state.pastSongs} />
