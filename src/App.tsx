@@ -7,7 +7,7 @@ import Header from './components/Header'
 import Form from "./components/Form"
 import PastSongs from "./components/PastSongs";
 import { Song } from "./Song"
-import { Letters } from "./Letters"
+import { Letters, createNextLetters } from "./Letters"
 import { Box } from "@mui/material"
 import Database from "./data/database";
 
@@ -68,8 +68,8 @@ class App extends Component<{}, AppState> {
 
   addSong = async (newSong: Song, callBack?: Function) => {
     // Capitalize the title and artist covered
-    newSong.titleCovered = this.capitalizeEachWord(newSong.titleCovered)
-    newSong.artistCovered = this.capitalizeEachWord(newSong.artistCovered)
+    newSong.titleCovered = this.capitalizeEachWord(newSong.titleCovered.toLowerCase())
+    newSong.artistCovered = this.capitalizeEachWord(newSong.artistCovered.toLowerCase())
 
     // Check if song has already been added
     let songAlreadyCovered = this.state.pastSongs.filter((pastSong) => {
@@ -92,6 +92,8 @@ class App extends Component<{}, AppState> {
 
   handleClick = async (song: Song) => {
     await this.addSong(song);
+    const nextLetters = createNextLetters(song.titleCovered, this.state.letters)
+    this.updateLetters(nextLetters)
   }
 
   render() {
