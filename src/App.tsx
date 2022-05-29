@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import './App.css';
 import Person from './components/Person'
-import Letters from './components/Letters'
+import LettersComponent from './components/LettersComponent'
 import DaysLeft from './components/DaysLeft'
 import Header from './components/Header'
 import Form from "./components/Form"
 import PastSongs from "./components/PastSongs";
 import { Song } from "./Song"
-import { LettersDataType } from "./Letters"
+import { Letters } from "./Letters"
 import { Box } from "@mui/material"
 import Database from "./data/database";
 
@@ -35,11 +35,16 @@ class App extends Component<{}, AppState> {
   }
 
   componentDidMount() {
-    Database.Instance.setUpdateListener((songs) => {
+    Database.Instance.setSongsUpdateListener((songs) => {
       this.setState({
         pastSongs: songs
       })
     });
+
+    Database.Instance.setLettersUpdateListener((letters) => {
+      this.setState({
+      })
+    })
   }
 
   incPersonIdx() {
@@ -79,6 +84,10 @@ class App extends Component<{}, AppState> {
     this.checkIfShouldMoveAlphLetter();
   }
 
+  updateLetters = async (letters: Letters) => {
+    Database.Instance.updateLettersOnDatabase(letters)
+  }
+
   capitalizeEachWord(name: string) {
     let splitName = name.split(" ")
     for (let i = 0; i < splitName.length; i++) {
@@ -111,14 +120,14 @@ class App extends Component<{}, AppState> {
     }
   }
 
-  updateLetters = async (letters: LettersDataType) => {
+
+  handleClick = async (song: Song) => {
+    await this.addSong(song);
     this.determineLetters()
-    Database.Instance.updateLettersOnDatabase("letters", {alphabetLetter: letters.alphabetLetter, lastLetterOfPrevSong: letters.lastLetterOfPrevSong})
-  }
-  
-  handleClick = (song: Song) => {
-    // this.addSong(song, () => this.determineLetters());
-    this.addSong(song, () => this.updateLetters({alphabetLetter: "X", lastLetterOfPrevSong: "Y"}));
+    this.updateLetters({
+      alphabetLetter: alphabet[this.state.alphLetterIdx], 
+      lastLetterOfPrevSong: this.state.lastLetterOfPrevSong
+    })
     this.incPersonIdx();
   }
 
@@ -128,7 +137,7 @@ class App extends Component<{}, AppState> {
       <Box m={2}>
         <Header />
         <Person person={persons[this.state.personIdx % persons.length]} />
-        <Letters aplhLetter={alphabet[this.state.alphLetterIdx % alphabet.length]} lastLetterOfPrevSong={this.state.lastLetterOfPrevSong} />
+        <LettersComponent aplhLetter={alphabet[this.state.alphLetterIdx % alphabet.length]} lastLetterOfPrevSong={this.state.lastLetterOfPrevSong} />
         <DaysLeft daysLeft={this.state.daysLeft} />
         <Form handleClick={this.handleClick} />
         <PastSongs pastSongs={this.state.pastSongs} />

@@ -1,4 +1,4 @@
-const Letters = ({aplhLetter, lastLetterOfPrevSong}) => {
+const LettersComponent = ({aplhLetter, lastLetterOfPrevSong}) => {
     return (
         <>
             <h2>Choose From: {aplhLetter} <small>(alphabet letter)</small> or {lastLetterOfPrevSong} <small>(last letter of previous song)</small></h2>
@@ -6,4 +6,4 @@ const Letters = ({aplhLetter, lastLetterOfPrevSong}) => {
     )
 }
 
-export default Letters;
+export default LettersComponent;
