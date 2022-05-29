@@ -1,5 +1,5 @@
 import { Firestore, getFirestore, orderBy, query } from "firebase/firestore";
-import { collection, addDoc, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, updateDoc, doc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { Song } from "../Song";
 import { LettersDataType } from "../Letters";
@@ -7,6 +7,7 @@ import { LettersDataType } from "../Letters";
 class Database {
     private static _instance: Database;
     private db: Firestore;
+    
 
     constructor() {
         const firebaseConfig = {
@@ -24,7 +25,7 @@ class Database {
 
         this.db = getFirestore(app);
     }
-
+    
     public static get Instance() {
         return this._instance || (this._instance = new this())
     }
@@ -64,8 +65,14 @@ class Database {
         })
     }
 
-    public async updateLettersOnDatabase(letters: LettersDataType) {
-        // add code here
+    public async updateLettersOnDatabase (id: string, letters: LettersDataType) {
+        try {
+            const lettersDoc = doc(this.db, "letters", id)
+            const newLetters = {alphabetLetter: letters.alphabetLetter, lastLetterOfPrevSong: letters.lastLetterOfPrevSong}
+            await updateDoc(lettersDoc, newLetters)
+        } catch (e) {
+            console.error("Error updating document: ", e)
+        }
     }
 }
 

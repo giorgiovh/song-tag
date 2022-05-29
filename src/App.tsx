@@ -111,14 +111,17 @@ class App extends Component<{}, AppState> {
     }
   }
 
+  updateLetters = async (letters: LettersDataType) => {
+    this.determineLetters()
+    Database.Instance.updateLettersOnDatabase("letters", {alphabetLetter: letters.alphabetLetter, lastLetterOfPrevSong: letters.lastLetterOfPrevSong})
+  }
+  
   handleClick = (song: Song) => {
-    this.addSong(song, () => this.determineLetters());
+    // this.addSong(song, () => this.determineLetters());
+    this.addSong(song, () => this.updateLetters({alphabetLetter: "X", lastLetterOfPrevSong: "Y"}));
     this.incPersonIdx();
   }
 
-  updateLetters = async (letters: LettersDataType) => {
-    Database.Instance.updateLettersOnDatabase(letters)
-  }
 
   render() {
     return (
