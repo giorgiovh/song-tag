@@ -1,8 +1,8 @@
-import { Firestore, getFirestore, orderBy, query } from "firebase/firestore";
+import { Firestore, getFirestore, orderBy, query, snapshotEqual } from "firebase/firestore";
 import { collection, addDoc, onSnapshot, updateDoc, doc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { Song } from "../Song";
-import { LettersDataType } from "../Letters";
+import { Letters } from "../Letters";
 
 class Database {
     private static _instance: Database;
@@ -43,15 +43,15 @@ class Database {
         }
     }
 
-    public setUpdateListener(callback: (songs: Song[]) => void) {
-        const q = query(collection(this.db, "songs"), orderBy("timestamp", "desc"))
+    public setSongsUpdateListener(callback: (songs: Song[]) => void) {
+        const songsQuery = query(collection(this.db, "songs"), orderBy("timestamp", "desc"))
         
-        onSnapshot(q, (doc) => {
+        onSnapshot(songsQuery, (snapshot) => {
             // this functions converts "doc" into an array that we can use
-
             var songs: Song[] = [];
-
-            doc.forEach((doc) => {
+            
+            snapshot.forEach((doc) => {
+                console.log("doc is ", doc.data());
                 const song: Song = { 
                     artistCovered: doc.data().artist, 
                     titleCovered: doc.data().title,
@@ -65,9 +65,25 @@ class Database {
         })
     }
 
-    public async updateLettersOnDatabase (id: string, letters: LettersDataType) {
+    public setLettersUpdateListener(callback: (letters: Letters) => void) {
+        const lettersQuery = query(collection(this.db, "letters"))
+
+        onSnapshot(lettersQuery, (snapshot) => {
+            const lettersDoc = snapshot.docs.at(0)
+
+            let letters: Letters = {
+                alphabetLetter: lettersDoc?.data().alphabetLetter,
+                lastLetterOfPrevSong: lettersDoc?.data().lastLetterOfPrevSong,
+            }
+
+            // the callback is used so we can set the state from App
+            callback(letters)
+        })
+    }
+
+    public async updateLettersOnDatabase (letters: Letters) {
         try {
-            const lettersDoc = doc(this.db, "letters", id)
+            const lettersDoc = doc(this.db, "letters", "letters")
             const newLetters = {alphabetLetter: letters.alphabetLetter, lastLetterOfPrevSong: letters.lastLetterOfPrevSong}
             await updateDoc(lettersDoc, newLetters)
         } catch (e) {
