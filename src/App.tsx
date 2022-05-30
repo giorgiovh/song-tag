@@ -1,15 +1,16 @@
-import React, { Component } from "react";
-import './App.css';
+import React, { Component } from "react"
+import './App.css'
 import Person from './components/Person'
 import LettersComponent from './components/LettersComponent'
 import DaysLeft from './components/DaysLeft'
 import Header from './components/Header'
 import Form from "./components/Form"
-import PastSongs from "./components/PastSongs";
+import PastSongs from "./components/PastSongs"
 import { Song } from "./Song"
 import { Letters, createNextLetters } from "./Letters"
 import { Box } from "@mui/material"
-import Database from "./data/database";
+import Database from "./data/database"
+import { meetsLetterCriteria, meetsUniqueSongCriteria, capitalizeEachWord } from "./utils"
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 
@@ -54,46 +55,19 @@ class App extends Component<{}, AppState> {
     })
   }
 
-  updateLetters = async (letters: Letters) => {
-    Database.Instance.updateLettersOnDatabase(letters)
-  }
-
-  capitalizeEachWord(name: string) {
-    let splitName = name.split(" ")
-    for (let i = 0; i < splitName.length; i++) {
-      splitName[i] = splitName[i][0].toLocaleUpperCase() + splitName[i].substr(1)
-    }
-    return splitName.join(" ")
-  }
-
-  addSong = async (newSong: Song, callBack?: Function) => {
-    // Capitalize the title and artist covered
-    newSong.titleCovered = this.capitalizeEachWord(newSong.titleCovered.toLowerCase())
-    newSong.artistCovered = this.capitalizeEachWord(newSong.artistCovered.toLowerCase())
-
-    // Check if song has already been added
-    let songAlreadyCovered = this.state.pastSongs.filter((pastSong) => {
-      return newSong.artistCovered === pastSong.artistCovered && newSong.titleCovered === pastSong.titleCovered
-    })
-
-    if (songAlreadyCovered.length > 0) {
-      alert("This song has already been added. Please choose a different song")
-    } else {
-      Database.Instance.addSongToDatabase(newSong);
-      this.setState(state => ({
-        pastSongs: [...state.pastSongs, newSong]
-      }), () => {
-        if (callBack) {
-          callBack()
-        }
-      })
-    }
-  }
-
   handleClick = async (song: Song) => {
-    await this.addSong(song);
-    const nextLetters = createNextLetters(song.titleCovered, this.state.letters)
-    this.updateLetters(nextLetters)
+    song.titleCovered = capitalizeEachWord(song.titleCovered.toLowerCase())
+    song.artistCovered = capitalizeEachWord(song.artistCovered.toLowerCase())
+
+    if (!meetsLetterCriteria(song, this.state.letters)) {
+      alert("Please choose a song that starts with the alphabet letter or the last letter of the previous song")
+    } else if (!meetsUniqueSongCriteria(song, this.state.pastSongs)) {
+      alert("Please choose a song that has not already been covered")
+    } else {
+      Database.Instance.addSongToDatabase(song);
+      const nextLetters = createNextLetters(song.titleCovered, this.state.letters)
+      Database.Instance.updateLettersOnDatabase(nextLetters)
+    }
   }
 
   render() {
