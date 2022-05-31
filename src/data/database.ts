@@ -7,7 +7,7 @@ import { Letters } from "../Letters";
 class Database {
     private static _instance: Database;
     private db: Firestore;
-    
+
 
     constructor() {
         const firebaseConfig = {
@@ -25,7 +25,7 @@ class Database {
 
         this.db = getFirestore(app);
     }
-    
+
     public static get Instance() {
         return this._instance || (this._instance = new this())
     }
@@ -45,15 +45,14 @@ class Database {
 
     public setSongsUpdateListener(callback: (songs: Song[]) => void) {
         const songsQuery = query(collection(this.db, "songs"), orderBy("timestamp", "desc"))
-        
+
         onSnapshot(songsQuery, (snapshot) => {
             // this functions converts "doc" into an array that we can use
             var songs: Song[] = [];
-            
+
             snapshot.forEach((doc) => {
-                console.log("doc is ", doc.data());
-                const song: Song = { 
-                    artistCovered: doc.data().artist, 
+                const song: Song = {
+                    artistCovered: doc.data().artist,
                     titleCovered: doc.data().title,
                     timestamp: doc.data().timestamp
                 }
@@ -81,10 +80,10 @@ class Database {
         })
     }
 
-    public async updateLettersOnDatabase (letters: Letters) {
+    public async updateLettersOnDatabase(letters: Letters) {
         try {
             const lettersDoc = doc(this.db, "letters", "letters")
-            const newLetters = {alphabetLetter: letters.alphabetLetter, lastLetterOfPrevSong: letters.lastLetterOfPrevSong}
+            const newLetters = { alphabetLetter: letters.alphabetLetter, lastLetterOfPrevSong: letters.lastLetterOfPrevSong }
             await updateDoc(lettersDoc, newLetters)
         } catch (e) {
             console.error("Error updating document: ", e)

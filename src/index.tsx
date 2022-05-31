@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import SignInScreen from './Authentication';
 // Import the functions you need from the SDKs you need
 
 
@@ -10,12 +10,9 @@ import App from './App';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-
-
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SignInScreen />
   </React.StrictMode>,
   document.getElementById('root')
 );
