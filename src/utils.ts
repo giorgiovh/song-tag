@@ -15,12 +15,6 @@ export const meetsUniqueSongCriteria = (newSong: Song, pastSongs: Song[]) => {
     return songAlreadyCovered.length === 0
 }
 
-// export const meetsAllCriteria = (newSong: Song, letters: Letters, pastSongs: Song[]) => {
-//     if (meetsLetterCriteria(newSong, letters) && meetsUniqueSongCriteria(newSong, pastSongs)) {
-//         return true
-//     }  
-// }
-
 export const capitalizeEachWord = (name: string) => {
     let words = name.split(" ")
     for (let i = 0; i < words.length; i++) {

@@ -10,7 +10,7 @@ import { Song } from "./Song"
 import { Letters, createNextLetters } from "./Letters"
 import { Box } from "@mui/material"
 import Database from "./data/database"
-import { meetsLetterCriteria, meetsUniqueSongCriteria, capitalizeEachWord } from "./utils"
+import { meetsLetterCriteria, meetsUniqueSongCriteria, capitalizeEachWord } from "./Utils"
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 
