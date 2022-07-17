@@ -45,44 +45,44 @@ class Form extends Component<FormProps, FormState> {
     createAndSubmitSong = (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (this.state.artistText && this.state.titleText) {
-            const song: Song = { 
-                artistCovered: this.state.artistText, 
+            const song: Song = {
+                artistCovered: this.state.artistText,
                 titleCovered: this.state.titleText,
-                timestamp: Timestamp.now() 
+                timestamp: Timestamp.now()
             }
             this.props.handleClick(song)
         }
         this.formRef.current?.reset();
-        this.setState({isButtonDisabled: true})
+        this.setState({ isButtonDisabled: true })
     }
 
 
     render() {
         return (
             <>
-                <label htmlFor="">Song Covered</label>
+                <label>Song Covered</label>
                 <br /><br />
-                <form 
+                <form
                     onSubmit={this.createAndSubmitSong}
                     ref={this.formRef}
                 >
-                    <TextField 
-                        id="outlined-basic" 
-                        label="Title" 
+                    <TextField
+                        id="outlined-basic"
+                        label="Title"
                         variant="outlined"
-                        required 
+                        required
                         onChange={this.handleTitleChange}
                     />
                     <br /><br />
-                    <TextField 
-                        id="outlined-basic" 
-                        label="Artist" 
-                        variant="outlined" 
-                        required 
+                    <TextField
+                        id="outlined-basic"
+                        label="Artist"
+                        variant="outlined"
+                        required
                         onChange={this.handleArtistChange}
                     />
                     <br /><br />
-                    <Button 
+                    <Button
                         variant="contained"
                         type="submit"
                         disabled={this.state.isButtonDisabled}

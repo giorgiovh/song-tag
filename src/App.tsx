@@ -86,7 +86,7 @@ class App extends Component<MyProps, AppState> {
           aplhLetter={this.state.letters.alphabetLetter}
           lastLetterOfPrevSong={this.state.letters.lastLetterOfPrevSong}
         />
-        <DaysLeft daysLeft={this.state.daysLeft} />``
+        <DaysLeft daysLeft={this.state.daysLeft} />
         <Form handleClick={this.handleClick} />
         <PastSongs pastSongs={this.state.pastSongs} />
       </Box>
