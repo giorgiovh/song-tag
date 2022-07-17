@@ -14,14 +14,18 @@ import { meetsLetterCriteria, meetsUniqueSongCriteria, capitalizeEachWord } from
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 
+type MyProps = {
+  logout: Function
+}
+
 interface AppState {
   personIdx: number
   letters: Letters
   daysLeft: number
   pastSongs: Song[]
 }
-class App extends Component<{}, AppState> {
-  constructor(props = {}) {
+class App extends Component<MyProps, AppState> {
+  constructor(props: MyProps) {
     super(props);
 
     this.state = {
@@ -70,9 +74,11 @@ class App extends Component<{}, AppState> {
     }
   }
 
+
   render() {
     return (
       <Box m={2}>
+        <button onClick={() => this.props.logout()}>Log out</button>
         <Header />
         <Person person={persons[this.state.personIdx % persons.length]} />
         <LettersComponent

@@ -4,6 +4,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import App from './App';
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDP-HqE50AzDBPuYp7m9T3uWdKNE-sZk3I",
@@ -33,6 +34,18 @@ const uiConfig = {
   },
 };
 
+const app = firebase.initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
+
+const logout = async () => {
+  try {
+    await auth.signOut()
+  } catch (error: any) {
+    console.log(error.message);
+  }
+}
+
 function SignInScreen() {
   const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
 
@@ -55,7 +68,7 @@ function SignInScreen() {
   }
   return (
     <div>
-      <App />
+      <App logout = {logout}/>
     </div>
   );
 }
