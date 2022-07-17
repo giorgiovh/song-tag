@@ -4,7 +4,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import App from './App';
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDP-HqE50AzDBPuYp7m9T3uWdKNE-sZk3I",
@@ -48,11 +48,13 @@ const logout = async () => {
 
 function SignInScreen() {
   const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
+  const [user, setUser] = useState<firebase.User | null>(null)
 
   // Listen to the Firebase Auth state and set the local state.
   useEffect(() => {
     const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
       setIsSignedIn(!!user);
+      setUser(user)
     });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, []);
@@ -68,7 +70,8 @@ function SignInScreen() {
   }
   return (
     <div>
-      <App logout = {logout}/>
+      <h4>{user ? user.displayName : "Not logged in"}</h4>
+      <App logout = {logout} />
     </div>
   );
 }

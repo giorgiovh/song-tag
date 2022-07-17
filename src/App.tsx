@@ -11,6 +11,7 @@ import { Letters, createNextLetters } from "./Letters"
 import { Box } from "@mui/material"
 import Database from "./data/database"
 import { meetsLetterCriteria, meetsUniqueSongCriteria, capitalizeEachWord } from "./Utils"
+import { userInfo } from "os"
 
 const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
 
@@ -85,7 +86,7 @@ class App extends Component<MyProps, AppState> {
           aplhLetter={this.state.letters.alphabetLetter}
           lastLetterOfPrevSong={this.state.letters.lastLetterOfPrevSong}
         />
-        <DaysLeft daysLeft={this.state.daysLeft} />
+        <DaysLeft daysLeft={this.state.daysLeft} />``
         <Form handleClick={this.handleClick} />
         <PastSongs pastSongs={this.state.pastSongs} />
       </Box>
