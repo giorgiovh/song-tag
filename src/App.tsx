@@ -14,7 +14,20 @@ import { meetsLetterCriteria, meetsUniqueSongCriteria, capitalizeEachWord } from
 import { userInfo } from "os"
 import firebase from 'firebase/compat/app';
 
-const persons = ["Jorge von Horoch", "Aditya", "Kevin", "Hamza", "Alex"]
+export type Person = {
+  id: String
+  firstName: String
+  lastName: String
+  isCurrent: Boolean
+}
+
+const persons: Person[] = [
+  { id: "iYGn49pP28arbDArx8XmLiEgEqi2", firstName: "Jorge", lastName: "von Horoch", isCurrent: true },
+  { id: "iYGn49pP28arbDArx8XmLiEgEqi3", firstName: "Aditya", lastName: "Dash", isCurrent: false },
+  { id: "iYGn49pP28arbDArx8XmLiEgEqi4", firstName: "Kevin", lastName: "Schechter", isCurrent: false },
+  { id: "iYGn49pP28arbDArx8XmLiEgEqi5", firstName: "Hamza", lastName: "Khan", isCurrent: false },
+  { id: "iYGn49pP28arbDArx8XmLiEgEqi6", firstName: "Alex", lastName: "Alavi", isCurrent: false }
+]
 
 type MyProps = {
   logout: Function,
@@ -90,7 +103,7 @@ class App extends Component<MyProps, AppState> {
           lastLetterOfPrevSong={this.state.letters.lastLetterOfPrevSong}
         />
         <DaysLeft daysLeft={this.state.daysLeft} />
-        {this.props.loggedInUser?.displayName ===  persons[this.state.personIdx] && <Form handleClick={this.handleClick} />}
+        {this.props.loggedInUser?.uid === persons[this.state.personIdx].id && <Form handleClick={this.handleClick} />}
         <PastSongs pastSongs={this.state.pastSongs} />
       </Box>
     )
