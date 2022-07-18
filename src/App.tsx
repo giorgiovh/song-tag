@@ -12,11 +12,13 @@ import { Box } from "@mui/material"
 import Database from "./data/database"
 import { meetsLetterCriteria, meetsUniqueSongCriteria, capitalizeEachWord } from "./Utils"
 import { userInfo } from "os"
+import firebase from 'firebase/compat/app';
 
-const persons = ["Giorgio", "Aditya", "Kevin", "Hamza", "Alex"]
+const persons = ["Jorge von Horoch", "Aditya", "Kevin", "Hamza", "Alex"]
 
 type MyProps = {
-  logout: Function
+  logout: Function,
+  loggedInUser: firebase.User | null
 }
 
 interface AppState {
@@ -69,9 +71,10 @@ class App extends Component<MyProps, AppState> {
     } else if (!meetsUniqueSongCriteria(song, this.state.pastSongs)) {
       alert("Please choose a song that has not already been covered")
     } else {
-      Database.Instance.addSongToDatabase(song);
+      Database.Instance.addSongToDatabase(song)
       const nextLetters = createNextLetters(song.titleCovered, this.state.letters)
       Database.Instance.updateLettersOnDatabase(nextLetters)
+      this.incPersonIdx()
     }
   }
 
@@ -87,7 +90,7 @@ class App extends Component<MyProps, AppState> {
           lastLetterOfPrevSong={this.state.letters.lastLetterOfPrevSong}
         />
         <DaysLeft daysLeft={this.state.daysLeft} />
-        <Form handleClick={this.handleClick} />
+        {this.props.loggedInUser?.displayName ===  persons[this.state.personIdx] && <Form handleClick={this.handleClick} />}
         <PastSongs pastSongs={this.state.pastSongs} />
       </Box>
     )

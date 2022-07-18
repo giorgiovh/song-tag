@@ -48,13 +48,13 @@ const logout = async () => {
 
 function SignInScreen() {
   const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
-  const [user, setUser] = useState<firebase.User | null>(null)
+  const [loggedInUser, setLoggedInUser] = useState<firebase.User | null>(null)
 
   // Listen to the Firebase Auth state and set the local state.
   useEffect(() => {
     const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
       setIsSignedIn(!!user);
-      setUser(user)
+      setLoggedInUser(user)
     });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, []);
@@ -70,8 +70,8 @@ function SignInScreen() {
   }
   return (
     <div>
-      <h4>{user ? user.displayName : "Not logged in"}</h4>
-      <App logout = {logout} />
+      <h4>{loggedInUser ? loggedInUser.displayName : "Not logged in"}</h4>
+      <App logout = {logout} loggedInUser = {loggedInUser}/>
     </div>
   );
 }
